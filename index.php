@@ -14,6 +14,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" 
+	id="dropboxjs" data-app-key="vzgw6i67spzm60b"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,8 +41,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a id="save" href="#" >저장</a></li>
-        <li><a id="load" href="#">불러오기</a></li>
+        <li><a id="cookie_save" href="#" >쿠키로 저장</a></li>
+        <li><a id="save" href="#" >파일로 저장</a></li>
+        <li><a id="cookie_load" href="#">쿠키에서 불러오기</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">정보</a></li>
@@ -59,6 +62,8 @@
         </select>
     </label>
 </form>
+
+<a href="https://dl.dropboxusercontent.com/s/deroi5nwm6u7gdf/advice.png" class="dropbox-saver"></a>
 
 <div id="editor"></div>
 <p>
@@ -86,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 
 	// 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
 	// 쿠키에 있어야 할 정보 1, 언어 2. 작성일 
-    $("#save").click(function() {
+    $("#cookie_save").click(function() {
         document.cookie = encodeURIComponent(editor.getValue());
         });
 
