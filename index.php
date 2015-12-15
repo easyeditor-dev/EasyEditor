@@ -41,67 +41,36 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a id="cookie_save" href="#" >쿠키로 저장</a></li>
-        <li><a id="save" href="#" >파일로 저장</a></li>
-        <li><a id="cookie_load" href="#">쿠키에서 불러오기</a></li>
+        <li><a id="save" href="#" >저장</a></li>
+        <li><a id="load" href="#">불러오기</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">정보</a></li>
         <li><a href="#">Dropbox로 로그인</a></li>
-        
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="lang_form">
+<form id="lang_form">
     <label> 언어를 선택하세요
         <select name="lang" form="lang_form">
-            <option value="c_cpp">C/C++</option>
-            <option value="javascript">JS</option>
+            <option value="c_cpp">c</option>
+            <option value="c_cpp">cpp</option>
+            <option value="javascript">js</option>
         </select>
+    </label>
+    <label>
+        파일 이름을 입력하세요
+        <input id="filename" type="text">
     </label>
 </form>
 
-<a href="https://dl.dropboxusercontent.com/s/deroi5nwm6u7gdf/advice.png" class="dropbox-saver"></a>
-
 <div id="editor"></div>
-<p>
-<?php 
-if($_SERVER["REQUEST_METHOD"]=="POST") {
-    echo $_POST["lang"].$_POST["code"];
-}
-
-?>
-</p>
+<br>
+<div id="container"></div>
 
 <script src="static/javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.setValue("#include <stdio.h>\n\nint main()\n{\n\tprintf('Hello World');\n\treturn 0;\n} ");
-    editor.getSession().setMode("ace/mode/"+$("select").val());
-
-    $(document).ready(function(){
-        $("select").change(function() {
-            editor.getSession().setMode("ace/mode/"+$("select").val());
-        });
-    });
-
-
-	// 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
-	// 쿠키에 있어야 할 정보 1, 언어 2. 작성일 
-    $("#cookie_save").click(function() {
-        document.cookie = encodeURIComponent(editor.getValue());
-        });
-
-    $("#load").click(function() {
-        var code = decodeURIComponent(document.cookie);
-
-        console.log(code);
-        
-		editor.setValue(code);
-        });
-</script>
+<script src="static/javascript/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
