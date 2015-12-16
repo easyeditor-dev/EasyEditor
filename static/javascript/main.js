@@ -186,7 +186,7 @@ $("#save").click(function() {
         //$("#down").remove(); // 이전에 있었던 다운로드 링크 삭제
 
         // 새로 다운로드 링크 만들기
-        var downLinkHTML = "<br><a id='down' href='http://localhost/EasyEditor/UserFile/" + name + "'>"
+        var downLinkHTML = "<br><a id='down' href='UserFile/" + name + "'>"
             + name +" 다운로드 하기</a>";
 
         $("#container").append(downLinkHTML);
