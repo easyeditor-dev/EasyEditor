@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="쉽고 간단한 웹 에디터">
     <title>EasyEditor</title>
     
     <!-- Latest compiled and minified CSS -->
