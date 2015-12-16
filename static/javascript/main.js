@@ -8,7 +8,9 @@ var curLang = getCookie("lang");
 // 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
 var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
 editor.getSession().setMode("ace/mode/"+curLang);
-$("#lang option:selected").html(curLang);
+
+$("#size").val(editor.getFontSize());
+//$("#lang option:selected").html(curLang);
 var filename  = "";
 
 var exts = {
@@ -85,7 +87,7 @@ var options =  {
 };
 
 editor.setTheme("ace/theme/"+$("#theme").val());
-editor.$blockScrolling = Infinity;
+//editor.$blockScrolling = Infinity;
 
 editor.setOptions({
     maxLines: Infinity,
@@ -157,13 +159,16 @@ $(document).ready(function(){
 
     $("#size").change(function () {
         editor.setFontSize(parseInt($("#size").val()));
+        editor.setTheme("ace/theme/"+$("#theme").val());
 
+        /*
         if (editor.getFontSize() >=34) {
             $("#editor").css({"width":"730px", "height":"600px"});
         }
         else {
             $("#editor").css({"width":"530px", "height":"200px"});
         }
+        */
 
     })
 });
@@ -199,7 +204,7 @@ $("#load").click(function() {
     var lang = getCookie("lang");
 
     editor.getSession().setMode("ace/mode/"+lang);
-    $("#lang option:selected").html(lang);
+    //$("#lang option:selected").html(lang);
     editor.setValue(code);
 
 });
