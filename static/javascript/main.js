@@ -1,17 +1,6 @@
 /**
  * Created by maxto on 2015-12-15.
  */
-var editor = ace.edit("editor"); // ace editor 초기화
-
-var curLang = getCookie("lang");
-
-// 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
-var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
-editor.getSession().setMode("ace/mode/"+curLang);
-
-$("#size").val(editor.getFontSize());
-//$("#lang option:selected").html(curLang);
-var filename  = "";
 
 var exts = {
     "C":"c",
@@ -29,6 +18,23 @@ var exts = {
     "Python":"py",
     "Plain Text":"txt"
 }; // 대응되는 파일 확장자 목록
+
+var modes = {
+    "C":"c_cpp",
+    "C++":"c_cpp",
+    "C#":"csharp",
+    "CSS":"css",
+    "Java":"java",
+    "JavaScript":"javascript",
+    "JSON":"json",
+    "HTML":"html",
+    "MakeFile":"makefile",
+    "MarkDown":"markdown",
+    "MySQL":"mysql",
+    "PHP":"php",
+    "Python":"python",
+    "Plain Text":"plain_text"
+};
 
 var helloWorlds = {
     "C":'#include <stdio.h>\nint main()\n{\n\tprintf("Hello World");\n\treturn 0;\n}',
@@ -55,7 +61,23 @@ var helloWorlds = {
     "Plain Text":"Hello World!"
 }; // 코드를 바꿔주기 위해 Hello World 목록
 
-var options =  {
+var editor = ace.edit("editor"); // ace editor 초기화
+
+editor.setFontSize(15); // 기본 폰트 사이즈 설정
+
+var curLang = getCookie("lang"); // 쿠키에서 언어 코드 얻어옴
+
+// 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
+var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
+editor.getSession().setMode("ace/mode/"+modes[curLang]); // 쿠키의 코드 언어로 현재 모드 변경
+
+
+$("#size").val(editor.getFontSize()); // 현재 폰트 사이즈로
+$("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
+
+var filename  = ""; // 파일 이름 초기화
+
+var options =  { // Dropbox option 초기화
     files: [
         // You can specify up to 100 files.
         {'url': 'http://localhost/EasyEditor/foo.js', 'filename': 'foo.js'}
@@ -86,8 +108,7 @@ var options =  {
     }
 };
 
-editor.setTheme("ace/theme/"+$("#theme").val());
-//editor.$blockScrolling = Infinity;
+editor.setTheme("ace/theme/"+$("#theme").val()); // 현재 테마 설정
 
 editor.setOptions({
     maxLines: Infinity,
@@ -102,8 +123,6 @@ else {
     editor.setValue(code);
 }
 
-editor.getSession().setMode("ace/mode/"+$("select").val());
-
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -115,16 +134,17 @@ function getCookie(cname) {
     return "";
 }
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname1, cvalue1, cname2, cvalue2, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+
+    document.cookie = cname1 + "=" + cvalue1 + "; "+ cname2 + "="
+        + cvalue2 + "; " + expires;
 }
 
 // 언어를 선택할 떄마다 syntax 하이라이팅을 바꿔주기 위해서
 $(document).ready(function(){
-
     function fileNameInit(ext) {
         if(ext == "MakeFile") {
             filename = "MakeFile"; //  Makefile 은 확장자가 없어서 따로 처리함
@@ -141,8 +161,10 @@ $(document).ready(function(){
     });
 
     $("#lang").change(function() {
-        var ext =  $("#lang option:selected").text();
-        var lang = $("#lang option:selected").val();
+        var $lang = $("#lang option:selected");
+
+        var ext =  $lang.text();
+        var lang = $lang.val();
 
         fileNameInit(ext);
 
@@ -161,23 +183,22 @@ $(document).ready(function(){
         editor.setFontSize(parseInt($("#size").val()));
         editor.setTheme("ace/theme/"+$("#theme").val());
 
-        /*
-        if (editor.getFontSize() >=34) {
-            $("#editor").css({"width":"730px", "height":"600px"});
-        }
-        else {
-            $("#editor").css({"width":"530px", "height":"200px"});
-        }
-        */
-
     })
 });
 
 // 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
 // 쿠키에 있어야 할 정보 1, 언어 2. 작성일
 $("#save").click(function() {
-    setCookie("code",encodeURIComponent(editor.getValue()),10);
-    setCookie("lang",$("#lang option:selected").text(),10);
+    //setCookie("code",encodeURIComponent(editor.getValue()),"lang",$("#lang option:selected").text(),10);
+
+    var d = new Date();
+    d.setTime(d.getTime() + (10*24*60*60*1000));
+    var expires = d.toUTCString();
+
+    document.cookie = "code=" + encodeURIComponent(editor.getValue()) + "; " + "lang=" +
+            $("#lang option:selected").text() +";";
+
+    document.cookie =  "lang=" + $("#lang option:selected").text() +";";
 
     $.post("codeToFile.php",
         {
@@ -186,10 +207,6 @@ $("#save").click(function() {
             filename: filename
         }
     ).done(function(name) {
-        alert("Data: "+name);
-
-        //$("#down").remove(); // 이전에 있었던 다운로드 링크 삭제
-
         // 새로 다운로드 링크 만들기
         var downLinkHTML = "<br><a id='down' href='UserFile/" + name + "'>"
             + name +" 다운로드 하기</a>";
@@ -203,8 +220,8 @@ $("#load").click(function() {
     var code = decodeURIComponent(getCookie("code"));
     var lang = getCookie("lang");
 
-    editor.getSession().setMode("ace/mode/"+lang);
-    //$("#lang option:selected").html(lang);
+    editor.getSession().setMode("ace/mode/"+modes[curLang]);
+    $("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
     editor.setValue(code);
 
 });

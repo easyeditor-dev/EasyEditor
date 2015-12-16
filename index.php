@@ -13,13 +13,15 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.min.js"></script>
+
     <!-- For overriding -->
     <link rel="stylesheet" href="static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js"
             id="dropboxjs" data-app-key="vzgw6i67spzm60b"></script>
 
@@ -44,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Easy Editor</a>
+                <a class="navbar-brand" onclick="window.open(document.URL)">Easy Editor</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -120,9 +122,9 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div id="editor"></div>
-    <br>
     <div id="container"></div>
+    <br>
+    <div id="editor"></div>
     <script src="static/javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="static/javascript/main.js" type="text/javascript" charset="utf-8"></script>
 </div>
