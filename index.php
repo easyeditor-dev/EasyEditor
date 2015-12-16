@@ -9,13 +9,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- For overriding -->
     <link rel="stylesheet" href="static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" 
+	id="dropboxjs" data-app-key="vzgw6i67spzm60b"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,40 +25,107 @@
     <![endif]-->
 </head>
 <body>
-<h1>Easy Editor</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Easy Editor</a>
+    </div>
 
-<form action="<?php echo $_SERVER['REQUEST_URI'];?>" method="post" id="lang_form">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a id="save" href="#" >저장</a></li>
+        <li><a id="load" href="#">불러오기</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="info.php">정보</a></li>
+        <li><a href="#">Dropbox로 로그인</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<form id="lang_form">
     <label> 언어를 선택하세요
-        <select name="lang" form="lang_form">
-            <option value="c_cpp">C/C++</option>
-            <option value="javascript">JS</option>
+        <select id="lang" name="lang" form="lang_form">
+            <option value="c_cpp">C</option>
+            <option value="c_cpp">C++</option>
+            <option value="csharp">C#</option>
+            <option value="css">CSS</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+            <option value="json">JSON</option>
+            <option value="html">HTML</option>
+            <option value="makefile">MakeFile</option>
+            <option value="markdown">MarkDown</option>
+            <option value="mysql">MySQL</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="mysql">MySQL</option>
+            <option value="plain_text">Plain Text</option>
         </select>
     </label>
-    <input value="코드 저장하기" type="submit">
+    <label>
+        파일 이름을 입력하세요
+        <input id="filename" type="text">
+    </label>
+    <br>
+    <label> 컬러 테마 변경
+        <select id="theme" name="theme" form="lang_form">
+            <option value="ambiance">ambiance</option>
+            <option value="chaos">chaos</option>
+            <option value="chrome">chrome</option>
+            <option value="clouds">clouds</option>
+            <option value="clouds_midnight">clouds_midnight</option>
+            <option value="cobalt">cobalt</option>
+            <option value="crimson_editor">crimson_editor</option>
+            <option value="dawn">dawn</option>
+            <option value="dreamweaver">dreamweaver</option>
+            <option value="eclipse">eclipse</option>
+            <option value="github">github</option>
+            <option value="idle_fingers">idle_fingers</option>
+            <option value="iplastic">iplastic</option>
+            <option value="katzenmilch">katzenmilch</option>
+            <option value="kr_theme">kr_theme</option>
+            <option value="kuroir">kuroir</option>
+            <option value="merbivore">merbivore</option>
+            <option value="merbivore_soft">merbivore_soft</option>
+            <option value="mono_industrial">mono_industrial</option>
+            <option value="monokai">monokai</option>
+            <option value="pastel_on_dark">pastel_on_dark</option>
+            <option value="solarized_dark">solarized_dark</option>
+            <option value="solarized_light">solarized_light</option>
+            <option value="sqlserver">sqlserver</option>
+            <option value="terminal">terminal</option>
+            <option value="textmate">textmate</option>
+            <option value="tomorrow">tomorrow</option>
+            <option value="tomorrow_night">tomorrow_night</option>
+            <option value="tomorrow_night_blue">tomorrow_night_blue</option>
+            <option value="tomorrow_night_bright">tomorrow_night_bright</option>
+            <option value="tomorrow_night_eighties">tomorrow_night_eighties</option>
+            <option value="twilight">twilight</option>
+            <option value="vibrant_link">vibrant_link</option>
+            <option value="xcode">xcode</option>
+        </select>
+    </label>
+    <label>코드 사이즈 변경 (입력하시면 적용됩니다)
+        <input id="size" type="number" name="fontSize" value="15">
+    </label>
 </form>
 
 <div id="editor"></div>
-<p>
-<?php 
-if($_SERVER["REQUEST_METHOD"]=="POST") {
-    echo $_POST["lang"].$_POST["code"];
-}
-
-?>
-</p>
+<br>
+<div id="container"></div>
 
 <script src="static/javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.setValue("#include <stdio.h>\n\nint main()\n{\n\tprintf('Hello World');\n\treturn 0;\n} ");
-    editor.getSession().setMode("ace/mode/"+$("select").val());
-
-    $(document).ready(function(){
-        $("select").change(function() {
-            editor.getSession().setMode("ace/mode/"+$("select").val());
-        });
-    });
-</script>
+<script src="static/javascript/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
