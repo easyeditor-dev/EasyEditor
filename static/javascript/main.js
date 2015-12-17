@@ -112,7 +112,8 @@ editor.setTheme("ace/theme/"+$("#theme").val()); // 현재 테마 설정
 
 editor.setOptions({
     maxLines: Infinity,
-    fontSize: parseInt($("#size").val())
+    fontSize: parseInt($("#size").val()),
+
 });
 
 // 아직 저장을 한 번도 안 했으면 C Hello World 삽입

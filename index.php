@@ -122,6 +122,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+    <div class="alert alert-warning" role="alert">파일 이름에 한글을 넣지 마세요!</div>
     <div id="container"></div>
     <br>
     <div id="editor"></div>
