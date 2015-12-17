@@ -67,13 +67,19 @@ editor.setFontSize(15); // 기본 폰트 사이즈 설정
 
 var curLang = getCookie("lang"); // 쿠키에서 언어 코드 얻어옴
 
+if (curLang.length == 0) {
+    curLang = "C";
+
+}
+
 // 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
 var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
+$("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
 editor.getSession().setMode("ace/mode/"+modes[curLang]); // 쿠키의 코드 언어로 현재 모드 변경
 
 
 $("#size").val(editor.getFontSize()); // 현재 폰트 사이즈로
-$("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
+//$("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
 
 var filename  = ""; // 파일 이름 초기화
 
@@ -187,35 +193,6 @@ $(document).ready(function(){
     })
 });
 
-// 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
-// 쿠키에 있어야 할 정보 1, 언어 2. 작성일
-$("#save").click(function() {
-    //setCookie("code",encodeURIComponent(editor.getValue()),"lang",$("#lang option:selected").text(),10);
-
-    var d = new Date();
-    d.setTime(d.getTime() + (10*24*60*60*1000));
-    var expires = d.toUTCString();
-
-    document.cookie = "code=" + encodeURIComponent(editor.getValue()) + "; " + "lang=" +
-            $("#lang option:selected").text() +";";
-
-    document.cookie =  "lang=" + $("#lang option:selected").text() +";";
-
-    $.post("codeToFile.php",
-        {
-            lang: $("select").val(),
-            code: editor.getValue(),
-            filename: filename
-        }
-    ).done(function(name) {
-        // 새로 다운로드 링크 만들기
-        var downLinkHTML = "<br><a id='down' href='UserFile/" + name + "'>"
-            + name +" 다운로드 하기</a>";
-
-        $("#container").append(downLinkHTML);
-    });
-});
-
 // 불러오기 누르면 쿠키에서 코드를 꺼내서 에디터에 삽입함
 $("#load").click(function() {
     var code = decodeURIComponent(getCookie("code"));
@@ -226,7 +203,3 @@ $("#load").click(function() {
     editor.setValue(code);
 
 });
-
-// 드랍박스 버튼 만들기
-var button = Dropbox.createSaveButton(options);
-document.getElementById("container").appendChild(button);

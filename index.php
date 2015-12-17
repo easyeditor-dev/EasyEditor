@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="쉽고 간단한 웹 에디터">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EasyEditor</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -25,8 +27,6 @@
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js"
             id="dropboxjs" data-app-key="vzgw6i67spzm60b"></script>
 
-
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,7 +35,29 @@
     <![endif]-->
 </head>
 <body>
-<div class="container">
+<?php
+require_once "dropbox-sdk/Dropbox/autoload.php";
+use \Dropbox as dbx;
+
+global $accountInfo, $accessToken, $authorizeUrl;
+
+$appInfo = dbx\AppInfo::loadFromJsonFile("app-info.json");
+$webAuth = new dbx\WebAuthNoRedirect($appInfo, "PHP-Example/1.0");
+
+$authorizeUrl = $webAuth->start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    list($accessToken, $dropboxUserId) = $webAuth->finish($_POST["authCode"]);
+
+    $dbxClient = new dbx\Client($accessToken, "PHP-Example/1.0");
+    $accountInfo = $dbxClient->getAccountInfo();
+
+    session_start();
+
+    $_SESSION["token"] = $accessToken;
+}
+?>
+<div class="container-fluid">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -117,17 +139,77 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="info.php">정보</a></li>
-                    <li><a href="#">Dropbox로 로그인</a></li>
+                    <li>
+                        <?php
+                        if($accountInfo != null) {
+                            echo "<a href='#' id='username'>".$accountInfo["display_name"]."</a>";
+                        }
+                        else {
+                            echo "<a id='login'>Dropbox로 로그인</a>";
+                        }
+                        ?>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="alert alert-warning" role="alert">파일 이름에 한글을 넣지 마세요!</div>
+
+    <div class="input-group">
+        <form action="<?=$_SERVER['REQUEST_URI'];?>" id="authForm"  method="POST">
+
+        </form>
+    </div><!-- /input-group -->
+
     <div id="container"></div>
     <br>
+
     <div id="editor"></div>
     <script src="static/javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="static/javascript/main.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        // 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
+        // 쿠키에 있어야 할 정보 1, 언어 2. 작성일
+        $("#save").click(function() {
+            var d = new Date();
+            d.setTime(d.getTime() + (10*24*60*60*1000));
+            var expires = d.toUTCString();
+
+            document.cookie = "code=" + encodeURIComponent(editor.getValue()) + "; " + "lang=" +
+                $("#lang option:selected").text() +";";
+
+            document.cookie =  "lang=" + $("#lang option:selected").text() +";";
+
+
+            $.post("codeToFile.php",
+                {
+                    lang: $("select").val(),
+                    code: editor.getValue(),
+                    filename: filename
+                }
+            ).done(function(name) {
+                // 새로 다운로드 링크 만들기
+                var downLinkHTML = "<br><a id='down' href='UserFile/" + name + "'>"
+                    + name +" 다운로드 하기</a>";
+
+                $("#container").append(downLinkHTML);
+            });
+        });
+
+        $("#login").click(function() {
+            alert("인증코드를 사이트에 넣어주세요!");
+            window.open("<?=$authorizeUrl?>");
+
+            var inputAuthCode =
+                $('<input name="authCode" type="text" class="form-control" placeholder="인증번호를 넣어주세요!"> \
+                        <span class="input-group-btn"> \
+                            <input type="submit" class="btn btn-default" type="button">로그인하기</input> \
+                        </span>');
+
+            $("#authForm").append(inputAuthCode);
+
+        });
+    </script>
 </div>
 </body>
 </html>
