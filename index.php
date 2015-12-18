@@ -8,14 +8,8 @@ $_SESSION["fail_reason"] = "";
 if (!isset($_SESSION["login"]))
     $_SESSION["login"] = false;
 
-if ($_SESSION["fail_reason"] == "PASSWORD") {
-    echo "<script>alert('비밀번호가 틀렸어요!');</script>";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "asdasdasdasd";
-}
-
+if(!isset($_SESSION["code"]))
+    $_SESSION["code"] = "";
 ?>
 <head>
     <meta charset="UTF-8">
@@ -244,10 +238,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $("#selForm").remove();
                 $("#container").append(form);
             });
-
-
-
         });
+
+
     </script>
 </div>
 </body>
