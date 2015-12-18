@@ -53,7 +53,7 @@ if(!isset($_SESSION["code"]))
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" onclick="window.open(document.URL)">Easy Editor</a>
+                <a class="navbar-brand" href="<?=$_SERVER['HTTP_REFERER']?>">Easy Editor</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -125,10 +125,6 @@ if(!isset($_SESSION["code"]))
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="info.php">정보</a></li>
                     <?php
-
-                    if(isset($_SESSION["id"]))
-                        echo $_SESSION["id"];
-
                     if ($_SESSION["login"] == false) {
                         echo '<li class="dropdown" id="menuLogin">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
@@ -152,6 +148,9 @@ if(!isset($_SESSION["code"]))
     </nav>
     <div id="alerts">
         <div class="alert alert-danger" role="alert">파일 이름 및 계정명에 한글을 넣지 마세요! PHP FILE IO 함수들은 한글을 인식하지 못해서 에러가 발생합니다.</div>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            비밀번호 및 서버에 저장되는 코드는 암호화 되어 있지 않습니다.</div>
         <?php
         if($_SESSION["login"] == true) {
             echo '<div class="alert alert-success alert-dismissible" role="alert">

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $form.="<input style='margin-left: 20px;' type='radio' name='src' value='".$row["src"]."'><a download href='".$row["src"]."'>".explode("/UserFile/",$row["src"])[1]." 다운로드 하기</a></input><br>";
         }
 
-        $form.= "<input type='button' id='loadCode' value='코드 불러오기'></form>";
+        $form.= "<input type='button' class=\"btn btn-default\" id='loadCode' value='코드 불러오기'></form>";
         $form.="<script>
             $(\"#loadCode\").click(function() {
             $.get(\"fileToCode.php\",
