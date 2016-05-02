@@ -46,7 +46,7 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 def index():
     return render_template('index.html', files = [])
 
-@easy_editor.route('/_code_to_file', methods=['POST'])
+@easy_editor.route('/_code_to_file', methods=['POST']) #저장하기 눌렀을때.
 def code_to_file():
     filename = request.form['filename']
     print(filename)
