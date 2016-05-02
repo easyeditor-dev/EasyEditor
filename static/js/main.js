@@ -76,7 +76,7 @@ if (curLang.length == 0) {
 
 }
 
-// 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
+// 처음 열었을 때 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
 var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
 $("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
 editor.getSession().setMode("ace/mode/"+modes[curLang]); // 쿠키의 코드 언어로 현재 모드 변경
@@ -123,7 +123,7 @@ function setCookie(cname1, cvalue1, cname2, cvalue2, exdays) {
         + cvalue2 + "; " + expires;
 }
 
-// 언어를 선택할 떄마다 syntax 하이라이팅을 바꿔주기 위해서
+// 언어를 선택할 때마다 syntax 하이라이팅을 바꿔주기 위해서
 $(document).ready(function(){
     function fileNameInit(ext) {
         if(ext == "MakeFile") {
@@ -180,7 +180,7 @@ $(document).ready(function(){
 
 
     // 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
-    // 쿠키에 있어야 할 정보 1, 언어 2. 작성일
+    // 쿠키에 있어야 할 정보 1. 언어 2. 작성일
     $("#save").click(function() {
         var d = new Date();
         d.setTime(d.getTime() + (10*24*60*60*1000));
