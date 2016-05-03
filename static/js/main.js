@@ -217,6 +217,17 @@ $("#delete").click(function() { //삭제하기
 
     });
 });
+var USER_FILE_DIR_PATH = './static/UserFile/'
 
+// 목록으로부터 파일 불러오기
+$(".load").click(function(){
+    var fso = new ActiveXObject("Scripting.FileSystemObject");
+    var filename = USER_FILE_DIR_PATH + $(".load").text();
+    if (!fso.FileExists(filename))
+        alert("File is not exist")
+    var f = fso.OpenTextFile(filename, 1); // Read Mode
+    editor.setValue(f.ReadAll());
+    f.Close();
+})
 
 

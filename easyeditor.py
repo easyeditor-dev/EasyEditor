@@ -38,6 +38,7 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+
 # file path table
 class Path(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,9 +56,11 @@ security = Security(easy_editor, user_datastore)
 
 USER_FILE_DIR_PATH = './static/UserFile/'
 
+
 @easy_editor.route('/')
 def index():
-    return render_template('index.html', files = [])
+    return render_template('index.html', files=[])
+
 
 
 @login_required
@@ -72,9 +75,9 @@ def code_to_file():
     code = request.form['code']
     file_path = USER_FILE_DIR_PATH + filename
 
-    with open(file_path , 'w') as f:
-        path_record = Path(user_id = User.query.filter_by(email = current_user.email).one().id,
-                           path    = file_path)
+    with open(file_path, 'w') as f:
+        path_record = Path(user_id=User.query.filter_by(email=current_user.email).one().id,
+                           path=file_path)
 
         f.write(code)
 
@@ -86,15 +89,19 @@ def code_to_file():
     for row in Path.query.all():
         print (row.file_path + ", " + str(row.user_id))
     '''
-
     return filename
+
 
 # 목록 보여주기
 @easy_editor.route('/_list', methods=['GET'])
 def list():
-    files = ['RecordMaker.java', 'control.c','hello.py', 'hi.cpp', 'index.js']
+    paths = Path.query.filter_by(user_id=User.query.filter_by(email=current_user.email).one().id).all()
+    files = []
+    for i in paths:
+        files.append(i.file_path[len(USER_FILE_DIR_PATH):])
     for i in files:
         print(i)
+
     return render_template('index.html', files = files)
 
 @easy_editor.route('/_delete', methods=['POST'])
