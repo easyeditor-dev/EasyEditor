@@ -200,6 +200,23 @@ $("#save").click(function() {
     });
 });
 
+$("#delete").click(function() { //삭제하기
+    $.post($SCRIPT_ROOT + '/_delete',
+        {
+            filename: filename
+        }
+    ).done(function(name) {
+        // 새로 다운로드 링크 만들기
+        var deleteLinkHTML = "<br><a href='#'>파일 이름을 입력하세요</a>";
+
+        if (name != "ERROR" ) {
+            deleteLinkHTML = "<br><p>" + name +"이 삭제되었습니다.</p>";
+        }
+
+        $("#container").append(deleteLinkHTML);
+
+    });
+});
 
 
 
