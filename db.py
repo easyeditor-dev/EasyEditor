@@ -1,12 +1,12 @@
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from app import app, db
+from __init__ import easy_editor, db
 from config import SQLALCHEMY_DATABASE_URI
 import sqlite3
 
-migrate = Migrate(app, db)
+migrate = Migrate(easy_editor, db)
 
-manager = Manager(app)
+manager = Manager(easy_editor)
 manager.add_command('db', MigrateCommand)
 
 @manager.command

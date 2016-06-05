@@ -4,6 +4,8 @@
 .idea/
 UserFile/
 
+*.pyc
+
 __pycache__/
 migrations/
 easyeditor.db
