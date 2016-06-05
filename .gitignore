@@ -7,3 +7,4 @@ UserFile/
 __pycache__/
 migrations/
 easyeditor.db
+venv/
