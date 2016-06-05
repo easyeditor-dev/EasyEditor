@@ -1,7 +1,8 @@
-from os import mkdir
-from flask import render_template, request
+import sys
 from os import mkdir
 from os.path import isdir
+
+from flask import render_template, request
 
 from __init__ import easy_editor
 
@@ -30,4 +31,8 @@ if __name__ == "__main__":
     if not isdir(USER_FILE_DIR_PATH):
         mkdir(USER_FILE_DIR_PATH)
 
-    easy_editor.run(port=8080)
+    if sys.argv[1] == "develop":
+        easy_editor.run(threaded=True)
+    elif sys.argv[1] == "deploy":
+        easy_editor.config.update(DEBUG=False)
+        easy_editor.run(host="0.0.0.0", port=int(80),threaded=True)
