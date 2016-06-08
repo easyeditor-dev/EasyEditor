@@ -5,7 +5,7 @@
   "engines": {
     "node": "5.4.1"
   },
-  "postinstall": "bash ./post_install.sh",
+  "postinstall": "bower install && grunt build",
   "dependencies": {
     "bower": "^1.7.9",
     "grunt": "^1.0.1"
