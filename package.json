@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/maxtortime/EasyEditor/issues"
   },
-  "homepage": "https://easyeditor.herokuapp.com/"
+  "homepage": "https://easyeditor.herokuapp.com/",
+  "cacheDirectories": ["node_modules", "bower_components"]
 }
