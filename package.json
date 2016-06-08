@@ -5,9 +5,10 @@
   "engines": {
     "node": "5.4.1"
   },
-  "postinstall": "bower install",
+  "postinstall": "bower install && grunt build",
   "dependencies": {
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "grunt": "^1.0.1"
   },
   "main": "app.py",
   "devDependencies": {},
