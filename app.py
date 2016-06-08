@@ -31,8 +31,13 @@ if __name__ == "__main__":
     if not isdir(USER_FILE_DIR_PATH):
         mkdir(USER_FILE_DIR_PATH)
 
-    if sys.argv[1] == "develop":
+    try:
+        mode = sys.argv[1]
+    except IndexError:
+        mode = "develop"
+
+    if mode == "develop":
         easy_editor.run(threaded=True)
-    elif sys.argv[1] == "deploy":
+    elif mode == "deploy":
         easy_editor.config.update(DEBUG=False)
         easy_editor.run(host="0.0.0.0", port=int(80),threaded=True)
