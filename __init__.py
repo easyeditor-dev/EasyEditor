@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_bower import Bower
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
 
@@ -8,9 +7,6 @@ easy_editor.config.from_object('config')
 
 # Define the DB
 db = SQLAlchemy(easy_editor)
-
-# flask-bower
-Bower(easy_editor)
 
 # Define models
 roles_users = db.Table('roles_users',

@@ -8,15 +8,15 @@
     <title>EasyEditor</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{{ url_for('bower.static', filename='bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="{{ url_for('bower.static', filename='bootstrap/dist/css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap-theme.min.css') }}">
 
     <!-- For overriding -->
     <link rel="stylesheet" href="/static/css/style.css">
-    <script src="{{ url_for('bower.static', filename='jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="{{ url_for('bower.static', filename='bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -125,7 +125,7 @@
     <div id="editor"></div>
     <div id="container"></div>
 </div>
-<script src="{{ url_for('bower.static', filename='ace-builds/src-min/ace.js') }}"
+<script src="{{ url_for('static', filename='components/ace-builds/src-min/ace.js') }}"
         type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript" charset="utf-8"></script>
 </body>
