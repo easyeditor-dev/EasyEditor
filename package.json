@@ -1,0 +1,31 @@
+{
+  "name": "easyeditor",
+  "description": "Simple source code editor for web",
+  "version": "0.0.1",
+  "engines": {
+    "node": "5.4.1"
+  },
+  "postinstall": "bower install",
+  "dependencies": {
+    "bower": "^1.7.9"
+  },
+  "main": "app.py",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxtortime/EasyEditor.git"
+  },
+  "keywords": [
+    "flask",
+    "editor"
+  ],
+  "author": "Taehwan Kim <maxtorime@ajou.ac.kr>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/maxtortime/EasyEditor/issues"
+  },
+  "homepage": "https://easyeditor.herokuapp.com/"
+}

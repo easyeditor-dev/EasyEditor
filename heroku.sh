@@ -9,8 +9,4 @@ python db.py db upgrade
 # user directory make
 mkdir ./static/UserFile/
 
-# for bower
-npm install -g bower
-bower install
-
 gunicorn app:easy_editor
