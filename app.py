@@ -12,10 +12,6 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 def index():
     return render_template('index.html')
 
-@easy_editor.route('/info')
-def info():
-    return render_template('info.html')
-
 @easy_editor.route('/_code_to_file', methods=['POST'])
 def code_to_file():
     filename = request.form['filename']
