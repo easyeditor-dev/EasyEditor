@@ -1,0 +1,26 @@
+{
+  "name": "EasyEditor",
+  "authors": [
+    "Taehwan Kim <maxtortime@gmail.com>"
+  ],
+  "description": "Simple source code editor for web",
+  "main": "app.py",
+  "keywords": [
+    "flask",
+    "editor",
+    "python"
+  ],
+  "license": "BSD",
+  "homepage": "https://easyeditor.herokuapp.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "ace": "^1.2.3"
+  }
+}
