@@ -8,5 +8,5 @@ python db.py db upgrade
 
 # user directory make
 mkdir ./static/UserFile/
-
+bower install
 gunicorn app:easy_editor
