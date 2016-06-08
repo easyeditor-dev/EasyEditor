@@ -8,20 +8,15 @@
     <title>EasyEditor</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/bootstrap/dist/css/bootstrap-theme.min.css') }}">
 
     <!-- For overriding -->
     <link rel="stylesheet" href="/static/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js"
-            id="dropboxjs" data-app-key="vzgw6i67spzm60b"></script>
-
+    <script src="{{ url_for('static', filename='components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,7 +34,8 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -129,7 +125,8 @@
     <div id="editor"></div>
     <div id="container"></div>
 </div>
-<script src="static/javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="static/javascript/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='components/ace-builds/src-min/ace.js') }}"
+        type="text/javascript" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

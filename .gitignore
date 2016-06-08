@@ -2,12 +2,15 @@
 .project
 .settings/
 .idea/
-UserFile/
+static/UserFile
 
 *.pyc
 
 __pycache__/
 migrations/
 easyeditor.db
+venv/
 bower_components/
 node_modules/
+*.log
+static/components
