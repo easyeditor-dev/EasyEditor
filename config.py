@@ -6,7 +6,8 @@ CSRF_ENABLED = True
 CSRF_SESSION_KEY = "5587fa76fb736bd9fe38271a5d0fca38"
 
 # Database
-SQLALCHEMY_DATABASE_URI = "sqlite:///easyeditor.db"
+SQLALCHEMY_DATABASE_URI = "postgres://dbztkzciqphofz:GdRIo7rCcfEeD-bhCXzaXj29QF@" \
+                          "ec2-54-243-203-141.compute-1.amazonaws.com:5432/ddagio70to1trv"
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = 'super-secret'
 
