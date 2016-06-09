@@ -9,6 +9,7 @@ migrate = Migrate(easy_editor, db)
 manager = Manager(easy_editor)
 manager.add_command('db', MigrateCommand)
 
+# local sqlite db를 만듬
 @manager.command
 def create_db():
     conn = sqlite3.connect('easyeditor.db')
