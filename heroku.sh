@@ -1,4 +1,3 @@
 #!/bin/bash
-# user directory make
-mkdir ./static/UserFile/
-gunicorn easyeditor:easy_editor --log-file=-
+mkdir ./static/UserFile/ # Making user's directory make
+gunicorn easyeditor:easy_editor --log-file=- # run by gunicorn

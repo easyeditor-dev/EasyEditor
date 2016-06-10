@@ -1,0 +1,6 @@
+{
+  "name": "Easy Editor",
+  "description": "Simply source code editor for web",
+  "repository": "https://github.com/maxtortime/EasyEditor",
+  "keywords": ["flask", "editor", "ace"]
+}
