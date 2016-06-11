@@ -207,6 +207,13 @@ $(document).ready(function(){
         });
     });
 
+    // 목록 출력
+    $("#list").click(function() {
+       var files = ['RecordMaker.java', 'control.c', 'hello.py', 'hi.cpp', 'index.js'];
+        for(var i in files)
+            console.log(files[i]);
+    });
+
     /*
      $.post("codeToDB.php",
      {
