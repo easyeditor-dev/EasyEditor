@@ -2,8 +2,9 @@ import sys
 from os import mkdir
 from os.path import isdir
 
-from flask import Flask, url_for
-from flask import render_template, request, redirect
+from flask import Flask
+from flask import render_template, request
+from flask_login import login_required, current_user
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
 from flask_sqlalchemy import SQLAlchemy
 
@@ -36,6 +37,17 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+# file path table
+class Path(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    file_path = db.Column(db.String(255))
+
+    def __init__(self, user_id, path):
+        self.user_id = user_id
+        self.file_path = path
+
+
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(easy_editor, user_datastore)
@@ -46,14 +58,31 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 def index():
     return render_template('index.html', files = [])
 
+@login_required
 @easy_editor.route('/_code_to_file', methods=['POST'])
 def code_to_file():
     filename = request.form['filename']
-    print(filename)
-    code = request.form['code']
 
-    with open(USER_FILE_DIR_PATH + filename, 'w') as f:
+    if len(filename.split('.')[0]) == 0:
+        return "ERROR"
+
+    code = request.form['code']
+    file_path = USER_FILE_DIR_PATH + filename
+
+    with open(file_path , 'w') as f:
+        path_record = Path(user_id = User.query.filter_by(email = current_user.email).one().id,
+                           path    = file_path)
+
         f.write(code)
+
+    db.session.add(path_record)
+    db.session.commit()
+
+    # Path 값 출력
+    '''
+    for row in Path.query.all():
+        print (row.file_path + ", " + str(row.user_id))
+    '''
 
     return filename
 
