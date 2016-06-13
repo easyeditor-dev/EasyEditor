@@ -57,6 +57,14 @@ def code_to_file():
 
     return filename
 
+# 목록 보여주기
+def list():
+    files = ['RecordMaker.java', 'control.c','hello.py', 'hi.cpp', 'index.js']
+    for i in files:
+        print(i)
+    return files
+
+
 if __name__ == "__main__":
     if not isdir(USER_FILE_DIR_PATH):
         mkdir(USER_FILE_DIR_PATH)
