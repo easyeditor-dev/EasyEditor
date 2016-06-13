@@ -124,7 +124,14 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div id="editor"></div>
-    <div id="container"></div>
+    <div id="container">
+        <ul>
+            {% for name in files %}
+                <li>{{ name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
 <script src="{{ url_for('static', filename='components/ace-builds/src-min/ace.js') }}"
         type="text/javascript" charset="utf-8"></script>

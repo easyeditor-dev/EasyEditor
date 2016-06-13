@@ -2,8 +2,8 @@ import sys
 from os import mkdir
 from os.path import isdir
 
-from flask import Flask
-from flask import render_template, request
+from flask import Flask, url_for
+from flask import render_template, request, redirect
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
 from flask_sqlalchemy import SQLAlchemy
 
@@ -44,7 +44,7 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 
 @easy_editor.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', files = [])
 
 @easy_editor.route('/_code_to_file', methods=['POST'])
 def code_to_file():
@@ -58,11 +58,12 @@ def code_to_file():
     return filename
 
 # 목록 보여주기
+@easy_editor.route('/_list', methods=['GET'])
 def list():
     files = ['RecordMaker.java', 'control.c','hello.py', 'hi.cpp', 'index.js']
     for i in files:
         print(i)
-    return files
+    return render_template('index.html', files = files)
 
 
 if __name__ == "__main__":
