@@ -164,18 +164,6 @@ $(document).ready(function(){
         editor.setTheme("ace/theme/"+$("#theme").val());
 
     })
-    /*
-    $("#loadCode").click(function() {
-        $.get("fileToCode.php",
-            {
-                src:$("input[name=src]:checked", "#selForm").val()
-            }
-        ).done(function(data) {
-            $("#selForm").remove();
-            alert(data);
-        });
-    });
-    */
 });
 
 
@@ -207,49 +195,6 @@ $(document).ready(function(){
         });
     });
 
-    /*
-     $.post("codeToDB.php",
-     {
-     lang: lang_real,
-     filename: filename,
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(data) {
-     if(data !="NOT_LOGIN") {
-     var successInfo = '<div class="alert alert-success alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>성공적으로 '+ filename+' 파일의 경로를 DB에 저장했습니다</div>';
 
-     $("#alerts").append(successInfo);
-     }
-     else {
-     var failInfo = '<div class="alert alert-warning alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>파일의 경로를 저장하려면 로그인 먼저 해주세요!</div>';
-
-     $("#alerts").append(failInfo);
-     }
-     });
-     });
-
-     // 불러오기 누르면 쿠키에서 코드를 꺼내서 에디터에 삽입함
-     $("#load").click(function() {
-     var code = decodeURIComponent(getCookie("code"));
-     var lang = getCookie("lang");
-
-     editor.getSession().setMode("ace/mode/"+modes[lang]);
-     $("#lang").val(modes[lang]); // 언어 선택을 바꿈(태그 값 교체)
-     editor.setValue(code);
-
-     $.get("selectForm.php",
-     {
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(form) {
-     $("#selForm").remove();
-     $("#container").append(form);
-     });
-     });
-     */
 
 
