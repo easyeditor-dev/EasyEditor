@@ -111,7 +111,7 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a id="list" href="#">목록</a></li>
+                    <li><a id="list" href="{{ url_for('list')}}">목록</a></li>
                     <li>
                         {% if current_user.is_authenticated %}
                             <a href="{{ url_for('security.logout') }}">로그아웃</a>
@@ -124,7 +124,14 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div id="editor"></div>
-    <div id="container"></div>
+    <div id="container">
+        <ul>
+            {% for name in files %}
+                <li><a class='load' href="#">{{ name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
 <script src="{{ url_for('static', filename='components/ace-builds/src-min/ace.js') }}"
         type="text/javascript" charset="utf-8"></script>
