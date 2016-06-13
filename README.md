@@ -14,33 +14,21 @@
 * 에디터 글자 크기 조정
 * 다양한 컬러 테마 적용 가능
 
-## 사용법
+## flask-babel 사용법
+1. flask-babel 설치 (requirements.txt 에 있음)
+> $ pip install flask-babel
+2. Python 코드에서는 gettext , html 에서는 > {{ _('문자열') }} 을 써서 번역할 단어 표시
+3. 아래 명령어를 사용하면 아까 표시한 단어들이 messages.pot 에 표시됨
+> $ pybabel extract -F babel.cfg -o messages.pot .
+4. 아래 명령어를 사용하면 새로운 언어를 번역할 수 있음
+> $ pybabel init -i messages.pot -d translations -l '[iso 언어코드(ko,en 등)](http://www.mcanerin.com/en/articles/meta-language.asp)'
+5. 위 명령어 실행 후 translations/언어코드/LC_MESSAGES/messages.po 이 생기는데 적절히 번역기를 돌리든 본인의 뛰어난 어학 실력을
+동원하든 해서 대응하는 단어를 번역하면 됨. ([Poedit](https://poedit.net/) 라는 프로그램 추천)
+6. 번역 후 아래 명령어를 실행시켜 mo 파일을 만든다
+> pybabel compile -d translations
+7. 자세한 건 https://pythonhosted.org/Flask-Babel/ 에 다 나옴
 
-## Contributing
-```sh
-$ heroku login
-$ heroku git:clone -a easyeditor
-$ cd easyeditor
-$ heroku local
-```
-로컬에서 flask 웹서버가 동작하면서 에디터가 보입니다.
+* 새로운 언어를 추가했다면 config.py 의 LANGUAGES 변수에 대응하는 언어와 코드를 넣어줄 것
+* 잘 됬나 테스트 시 이 [크롬 확장 프로그램](https://chrome.google.com/webstore/detail/quick-language-switcher/pmjbhfmaphnpbehdanbjphdcniaelfie) 추천 (locale 을 바꿔줌)
 
-* .bowerrc : Bower 가 Javscript 라이브러리를 설치하는 디렉토리
-* .buildpacks : 이 프로젝트에서 사용하는 heroku buildpack들 목록
-* app.json : Heroku 가 인식하는 앱 description 파일
-* bower.json : Bower 설정 파일
-* config.py : Flask 를 구동하기 위한 설정 파일
-* easyeditor.py : 핵심 파일 (코드 주석 읽기
-* heroku.sh : heroku 배포를 위한 shell script
-* package.json : npm 설정 파일
-* Procfile : heroku repo push 시에 이 파일이 먼저 실행되면서 빌드를 시작한다
-* manage.py : Database 관련 설정 파일이지만 heroku 를 쓰게 되면서 지금은 필요없음
-* requirements.txt : 이 프로젝트에서 필요한 파이선 패키지 목록
-* runtime.txt : heroku 에게 어떤 파이썬 버전을 쓰는 지 알려줌
-
-```sh
-# 로컬에서 테스트시
-$ heroku local
-# 배포하려고 할 때
-$ git push heroku master
-```
+ 
