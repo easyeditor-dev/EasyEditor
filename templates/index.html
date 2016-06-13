@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="쉽고 간단한 웹 에디터">
+    <meta name="description" content="{{ _('쉽고 간단한 웹 에디터') }}">
     <title>EasyEditor</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -47,14 +47,15 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a id="save" href="#">저장</a></li>
-                    <li><a id="load" href="#">불러오기</a></li>
+                    <li><a id="save" href="#">{{ _('저장') }}</a></li>
+                    <li><a id="load" href="#">{{ _('불러오기') }}</a></li>
 
                 </ul>
                 <form class="navbar-form navbar-left" role="option">
                     <div class="form-group">
-                        <input id="filename" type="text" class="form-control" placeholder="파일 이름을 입력하세요">
-                        <input type="number" id="size" name="fontSize" class="form-control" placeholder="글꼴 크기">
+                        <input id="filename" type="text" class="form-control" placeholder="{{ _('파일 이름을 입력하세요') }}">
+                        <input type="number" id="size" name="fontSize" class="form-control"
+                               placeholder="{{ _('글꼴 크기') }}">
                         <select id="lang" name="lang" form="lang_form" class="form-control">
                             <option value="c_cpp">C</option>
                             <option value="c_cpp">C++</option>
@@ -111,12 +112,11 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a id="list" href="{{ url_for('list')}}">목록</a></li>
                     <li>
                         {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('security.logout') }}">로그아웃</a>
+                            <a href="{{ url_for('security.logout') }}">{{ _('로그아웃') }}</a>
                         {% else %}
-                            <a href="{{ url_for('security.login') }}">로그인</a>
+                            <a href="{{ url_for('security.login') }}">{{ _('로그인') }}</a>
                         {% endif %}
                     </li>
                 </ul>

@@ -1,4 +1,11 @@
 DEBUG = True
+BABEL_DEFAULT_LOCALE = 'ko'
+
+LANGUAGES = {
+    'ko' : 'Korean',
+    'en' : 'English',
+    'ja' : 'Japanese'
+}
 
 # Enable protection agains *Cross-site Request Forgery (CSRF)*
 WTF_CSRF_ENABLED = True
