@@ -2,13 +2,18 @@ import sys
 from os import mkdir
 from os.path import isdir
 
-from flask import Flask
+from flask import Flask, g
 from flask import render_template, request
+from flask_babel import Babel
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
 from flask_sqlalchemy import SQLAlchemy
+from config import LANGUAGES
 
 easy_editor = Flask(__name__)
 easy_editor.config.from_object('config')
+
+# for i18n
+babel = Babel(easy_editor)
 
 # Define the DB
 db = SQLAlchemy(easy_editor)
@@ -42,6 +47,10 @@ security = Security(easy_editor, user_datastore)
 
 USER_FILE_DIR_PATH = './static/UserFile/'
 
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
+
 @easy_editor.route('/')
 def index():
     return render_template('index.html')
@@ -56,14 +65,6 @@ def code_to_file():
         f.write(code)
 
     return filename
-
-# 목록 보여주기
-def list():
-    files = ['RecordMaker.java', 'control.c','hello.py', 'hi.cpp', 'index.js']
-    for i in files:
-        print(i)
-    return files
-
 
 if __name__ == "__main__":
     if not isdir(USER_FILE_DIR_PATH):

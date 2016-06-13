@@ -1,0 +1,47 @@
+# Translations template for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-06-14 01:19+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: templates/index.html:7
+msgid "쉽고 간단한 웹 에디터"
+msgstr ""
+
+#: templates/index.html:50
+msgid "저장"
+msgstr ""
+
+#: templates/index.html:51
+msgid "불러오기"
+msgstr ""
+
+#: templates/index.html:56
+msgid "파일 이름을 입력하세요"
+msgstr ""
+
+#: templates/index.html:58
+msgid "글꼴 크기"
+msgstr ""
+
+#: templates/index.html:117
+msgid "로그아웃"
+msgstr ""
+
+#: templates/index.html:119
+msgid "로그인"
+msgstr ""
+
