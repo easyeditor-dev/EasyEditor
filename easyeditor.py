@@ -126,6 +126,17 @@ def delete():
 
     return filename
 
+
+# 목록으로부터 파일 불러오기
+@easy_editor.route('/_load', methods=['POST'])
+def load():
+    filename = request.form['filename']
+    file_path = USER_FILE_DIR_PATH + filename
+    with open(file_path, 'r') as f:
+        code = f.read()
+    return code
+
+
 if __name__ == "__main__":
     if not isdir(USER_FILE_DIR_PATH):
         mkdir(USER_FILE_DIR_PATH)
