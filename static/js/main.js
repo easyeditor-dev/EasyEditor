@@ -76,7 +76,7 @@ if (curLang.length == 0) {
 
 }
 
-// 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
+// 처음 열었을 때 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
 var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
 $("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
 editor.getSession().setMode("ace/mode/"+modes[curLang]); // 쿠키의 코드 언어로 현재 모드 변경
@@ -123,7 +123,7 @@ function setCookie(cname1, cvalue1, cname2, cvalue2, exdays) {
         + cvalue2 + "; " + expires;
 }
 
-// 언어를 선택할 떄마다 syntax 하이라이팅을 바꿔주기 위해서
+// 언어를 선택할 때마다 syntax 하이라이팅을 바꿔주기 위해서
 $(document).ready(function(){
     function fileNameInit(ext) {
         if(ext == "MakeFile") {
@@ -196,9 +196,27 @@ $("#save").click(function() {
         }
 
         $("#container").append(downLinkHTML);
+
     });
 });
 
+$("#delete").click(function() { //삭제하기
+    $.post($SCRIPT_ROOT + '/_delete',
+        {
+            filename: filename
+        }
+    ).done(function(name) {
+        // 새로 다운로드 링크 만들기
+        var deleteLinkHTML = "<br><a href='#'>파일 이름을 입력하세요</a>";
+
+        if (name != "ERROR" ) {
+            deleteLinkHTML = "<br><p>" + name +"이 삭제되었습니다.</p>";
+        }
+
+        $("#container").append(deleteLinkHTML);
+
+    });
+});
 
 // 목록으로부터 파일 불러오기
 $(".load").click(function(){
@@ -210,6 +228,5 @@ $(".load").click(function(){
         editor.setValue(code);
     })
 })
-
 
 

@@ -1,3 +1,4 @@
+import os
 import sys
 from os import mkdir
 from os.path import isdir
@@ -61,8 +62,10 @@ def index():
     return render_template('index.html', files=[])
 
 
+
 @login_required
 @easy_editor.route('/_code_to_file', methods=['POST'])
+
 def code_to_file():
     filename = request.form['filename']
 
@@ -98,7 +101,26 @@ def list():
         files.append(i.file_path[len(USER_FILE_DIR_PATH):])
     for i in files:
         print(i)
-    return render_template('index.html', files=files)
+
+    return render_template('index.html', files = files)
+
+@easy_editor.route('/_delete', methods=['POST'])
+def delete():
+    filename = request.form['filename']
+
+    if len(filename.split('.')[0]) == 0:
+        return "ERROR"
+
+    file_path = USER_FILE_DIR_PATH + filename
+
+    path_record = Path(user_id = User.query.filter_by(email = current_user.email).one().id, path = file_path)
+
+    os.remove(file_path)
+
+    db.session.remove(path_record)
+    db.session.commit()
+
+    return filename
 
 
 # 목록으로부터 파일 불러오기
