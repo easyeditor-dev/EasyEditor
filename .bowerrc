@@ -1,4 +1,3 @@
-// Bower가 javascript dependencies 들을 어디다 설치할지 결정
 {
     "directory": "static/components"
 }
