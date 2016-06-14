@@ -218,6 +218,17 @@ $("#delete").click(function() { //삭제하기
     });
 });
 
+$("#load").click(function(){
+    console.log($("#filename").text)
+    $.post($SCRIPT_ROOT + '/_load',
+        {
+            filename: $("#filename").text
+        }
+    ).done(function(code){
+        editor.setValue(code);
+    })
+})
+
 // 목록으로부터 파일 불러오기
 $(".load").click(function(){
     console.log(this.text);
