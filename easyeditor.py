@@ -61,11 +61,8 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 def index():
     return render_template('index.html', files=[])
 
-
-
 @login_required
 @easy_editor.route('/_code_to_file', methods=['POST'])
-
 def code_to_file():
     filename = request.form['filename']
 
@@ -84,15 +81,11 @@ def code_to_file():
     db.session.add(path_record)
     db.session.commit()
 
-    # Path 값 출력
-    '''
-    for row in Path.query.all():
-        print (row.file_path + ", " + str(row.user_id))
-    '''
     return filename
 
 
 # 목록 보여주기
+@login_required
 @easy_editor.route('/_list', methods=['GET'])
 def list():
     paths = Path.query.filter_by(user_id=User.query.filter_by(email=current_user.email).one().id).all()
@@ -104,6 +97,8 @@ def list():
 
     return render_template('index.html', files = files)
 
+
+@login_required
 @easy_editor.route('/_delete', methods=['POST'])
 def delete():
     filename = request.form['filename']
@@ -128,6 +123,7 @@ def delete():
 
 
 # 목록으로부터 파일 불러오기
+@login_required
 @easy_editor.route('/_load', methods=['POST'])
 def load():
     filename = request.form['filename']
