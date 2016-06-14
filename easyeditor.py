@@ -113,12 +113,16 @@ def delete():
 
     file_path = USER_FILE_DIR_PATH + filename
 
-    path_record = Path(user_id = User.query.filter_by(email = current_user.email).one().id, path = file_path)
+    path_record = Path.query.filter_by(user_id = User.query.filter_by(email = current_user.email).one().id,
+                                       file_path = file_path).one()
 
-    os.remove(file_path)
+    if path_record != None:
+        os.remove(file_path)
 
-    db.session.remove(path_record)
-    db.session.commit()
+        db.session.delete(path_record)
+        db.session.commit()
+    else:
+        return "ERROR"
 
     return filename
 
