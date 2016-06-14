@@ -220,9 +220,10 @@ $("#delete").click(function() { //삭제하기
 
 // 목록으로부터 파일 불러오기
 $(".load").click(function(){
+    console.log(this.text);
     $.post($SCRIPT_ROOT + '/_load',
         {
-            filename: $(".load").text
+            filename: this.text
         }
     ).done(function(code){
         editor.setValue(code);
