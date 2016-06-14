@@ -1,6 +1,9 @@
 import sys
 from os import mkdir
 from os.path import isdir
+import subprocess
+import shlex
+
 
 from flask import Flask
 from flask import render_template, request
@@ -45,6 +48,19 @@ USER_FILE_DIR_PATH = './static/UserFile/'
 @easy_editor.route('/')
 def index():
     return render_template('index.html')
+
+@easy_editor.route('/_file_compile')
+def file_compile():
+    filename = request.form['filename']
+    result = subprocess_open('gcc -wall -ggdb -0 ' + USER_FILE_DIR_PATH +filename)
+    return render_template('index.html',result = result)
+
+def subprocess_open(command):
+    popen = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell = True)
+    (stdoutdata, stderrdata) = popen.communicate()
+    return stdoutdata,stderrdata
+
+
 
 @easy_editor.route('/_code_to_file', methods=['POST'])
 def code_to_file():
