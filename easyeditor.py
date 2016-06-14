@@ -2,11 +2,13 @@ import sys
 from os import mkdir
 from os.path import isdir
 
-from flask import Flask, g
+from flask import Flask
 from flask import render_template, request
+from flask_login import login_required
 from flask_babel import Babel
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
 from flask_sqlalchemy import SQLAlchemy
+
 from config import LANGUAGES
 
 easy_editor = Flask(__name__)
@@ -55,6 +57,7 @@ def get_locale():
 def index():
     return render_template('index.html')
 
+@login_required
 @easy_editor.route('/_code_to_file', methods=['POST']) #저장하기 눌렀을때.
 def code_to_file():
     filename = request.form['filename']
