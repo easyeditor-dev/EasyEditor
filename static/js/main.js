@@ -165,11 +165,23 @@ $(document).ready(function(){
     })
 });
 
-$("#load").click(function(){
-    console.log($("#filename").text)
+$("#load-btn").click(function(){
+    console.log($("#filename").val)
     $.post($SCRIPT_ROOT + '/_load',
         {
-            filename: $("#filename").text
+            filename: filename
+        }
+    ).done(function(code){
+        editor.setValue(code);
+    })
+});
+
+// 목록으로부터 파일 불러오기
+$(".load").click(function(){
+    console.log(this.text);
+    $.post($SCRIPT_ROOT + '/_load',
+        {
+            filename: this.text
         }
     ).done(function(code){
         editor.setValue(code);
