@@ -7,3 +7,10 @@
 #size {
     width : 100px;
 }
+.jumbotron{
+    background-color: #FFFBD1;
+    height: 30px;
+}
+.form-control{
+    width: 300px;
+}

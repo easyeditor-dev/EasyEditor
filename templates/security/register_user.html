@@ -2,15 +2,20 @@
 {% from "security/_macros.html" import render_field_with_errors, render_field %}
 {% include "security/_messages.html" %}
 {% block body %}
-    <h1>Register</h1>
+    <h1 class = " jumbotron " >Register</h1>
+    <table>
+<tr>
+    <td class="col-sm-2 sidenav">{% include "security/_menu.html" %}</td>
+<td class = col-sm-4></td>
+    <td class = col-sm-8">
     <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
         {{ register_user_form.hidden_tag() }}
-        {{ render_field_with_errors(register_user_form.email) }}
-        {{ render_field_with_errors(register_user_form.password) }}
+        {{ render_field_with_errors(register_user_form.email, class ="form-control") }}
+        {{ render_field_with_errors(register_user_form.password , class ="form-control") }}
         {% if register_user_form.password_confirm %}
-            {{ render_field_with_errors(register_user_form.password_confirm) }}
+            {{ render_field_with_errors(register_user_form.password_confirm, class ="form-control") }}
         {% endif %}
-        {{ render_field(register_user_form.submit) }}
+        {{ render_field(register_user_form.submit,class = "btn btn-info")}}
     </form>
-    {% include "security/_menu.html" %}
+  </td></tr></table>
 {% endblock %}
