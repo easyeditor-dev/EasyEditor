@@ -76,7 +76,7 @@ if (curLang.length == 0) {
 
 }
 
-// 청므 열었을 떄 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
+// 처음 열었을 때 쿠키에서 데이터를 받아와 예전에 편집한 코드를 불러준다.
 var code = decodeURIComponent(getCookie("code")); // 쿠키에서 데이터 받아옴
 $("#lang").val(modes[curLang]); // 언어 선택을 바꿈(태그 값 교체)
 editor.getSession().setMode("ace/mode/"+modes[curLang]); // 쿠키의 코드 언어로 현재 모드 변경
@@ -91,8 +91,7 @@ editor.setTheme("ace/theme/"+$("#theme").val()); // 현재 테마 설정
 
 editor.setOptions({
     maxLines: Infinity,
-    fontSize: parseInt($("#size").val()),
-
+    fontSize: parseInt($("#size").val())
 });
 
 // 아직 저장을 한 번도 안 했으면 C Hello World 삽입
@@ -123,7 +122,7 @@ function setCookie(cname1, cvalue1, cname2, cvalue2, exdays) {
         + cvalue2 + "; " + expires;
 }
 
-// 언어를 선택할 떄마다 syntax 하이라이팅을 바꿔주기 위해서
+// 언어를 선택할 때마다 syntax 하이라이팅을 바꿔주기 위해서
 $(document).ready(function(){
     function fileNameInit(ext) {
         if(ext == "MakeFile") {
@@ -164,92 +163,29 @@ $(document).ready(function(){
         editor.setTheme("ace/theme/"+$("#theme").val());
 
     })
-    /*
-    $("#loadCode").click(function() {
-        $.get("fileToCode.php",
-            {
-                src:$("input[name=src]:checked", "#selForm").val()
-            }
-        ).done(function(data) {
-            $("#selForm").remove();
-            alert(data);
-        });
-    });
-    */
 });
 
+$("#load").click(function(){
+    console.log($("#filename").text)
+    $.post($SCRIPT_ROOT + '/_load',
+        {
+            filename: $("#filename").text
+        }
+    ).done(function(code){
+        editor.setValue(code);
+    })
+});
 
-    // 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
-    // 쿠키에 있어야 할 정보 1, 언어 2. 작성일
-    $("#save").click(function() {
-        var d = new Date();
-        d.setTime(d.getTime() + (10*24*60*60*1000));
-        var expires = d.toUTCString();
-
-        var codeEncoded = encodeURIComponent(editor.getValue());
-
-        document.cookie = "code=" + codeEncoded + "; " + "lang=" +
-                $("#lang option:selected").text() +";";
-
-        document.cookie =  "lang=" + $("#lang option:selected").text() +";";
-
-        $.post($SCRIPT_ROOT + '/_code_to_file',
-                {
-                    code: editor.getValue(),
-                    filename: filename
-                }
-        ).done(function(name) {
-            // 새로 다운로드 링크 만들기
-            var downLinkHTML = "<br><a download id='down' href='/static/UserFile/" + name + "'>"
-                    + name +" 다운로드 하기</a>";
-
-            $("#container").append(downLinkHTML);
-        });
-    });
-
-    /*
-     $.post("codeToDB.php",
-     {
-     lang: lang_real,
-     filename: filename,
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(data) {
-     if(data !="NOT_LOGIN") {
-     var successInfo = '<div class="alert alert-success alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>성공적으로 '+ filename+' 파일의 경로를 DB에 저장했습니다</div>';
-
-     $("#alerts").append(successInfo);
-     }
-     else {
-     var failInfo = '<div class="alert alert-warning alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>파일의 경로를 저장하려면 로그인 먼저 해주세요!</div>';
-
-     $("#alerts").append(failInfo);
-     }
-     });
-     });
-
-     // 불러오기 누르면 쿠키에서 코드를 꺼내서 에디터에 삽입함
-     $("#load").click(function() {
-     var code = decodeURIComponent(getCookie("code"));
-     var lang = getCookie("lang");
-
-     editor.getSession().setMode("ace/mode/"+modes[lang]);
-     $("#lang").val(modes[lang]); // 언어 선택을 바꿈(태그 값 교체)
-     editor.setValue(code);
-
-     $.get("selectForm.php",
-     {
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(form) {
-     $("#selForm").remove();
-     $("#container").append(form);
-     });
-     });
-     */
+// 목록으로부터 파일 불러오기
+$(".load").click(function(){
+    console.log(this.text);
+    $.post($SCRIPT_ROOT + '/_load',
+        {
+            filename: this.text
+        }
+    ).done(function(code){
+        editor.setValue(code);
+    })
+});
 
 

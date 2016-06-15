@@ -1,0 +1,64 @@
+# English translations for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <maxtortime@ajou.ac.kr>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-06-14 16:35+0900\n"
+"PO-Revision-Date: 2016-06-15 13:04+0900\n"
+"Last-Translator: Taehwan Kim <maxtortime@ajou.ac.kr>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: templates/base.html:7
+msgid "쉽고 간단한 웹 에디터"
+msgstr "Easy and simple Web Editor"
+
+#: templates/index.html:21
+msgid "저장"
+msgstr "Save"
+
+#: templates/index.html:22
+msgid "불러오기"
+msgstr "Load"
+
+#: templates/index.html:23
+msgid "삭제"
+msgstr "Delete"
+
+#: templates/index.html:28 templates/index.html:131 templates/index.html:150
+msgid "파일 이름을 입력하세요"
+msgstr "File name"
+
+#: templates/index.html:30
+msgid "글꼴 크기"
+msgstr "Font size"
+
+#: templates/index.html:88
+msgid "목록"
+msgstr "List"
+
+#: templates/index.html:89
+msgid "로그아웃"
+msgstr "Log out"
+
+#: templates/index.html:91
+msgid "로그인"
+msgstr "Login"
+
+#: templates/index.html:135
+msgid "다운로드 하기"
+msgstr "Download"
+
+#: templates/index.html:153
+msgid "이 삭제되었습니다"
+msgstr "has been deleted successfully"

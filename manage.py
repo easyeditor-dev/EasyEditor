@@ -1,8 +1,9 @@
+import sqlite3
+
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from __init__ import easy_editor, db
 from config import SQLALCHEMY_DATABASE_URI
-import sqlite3
+from easyeditor import easy_editor, db
 
 migrate = Migrate(easy_editor, db)
 
@@ -17,7 +18,6 @@ def create_db():
         print("easyeditor.db created successfully")
     else:
         print("Creating easyeditor.db failed")
-
 
 if __name__ == '__main__':
     manager.run()
