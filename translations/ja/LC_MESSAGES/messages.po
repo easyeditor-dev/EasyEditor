@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-14 01:19+0900\n"
-"PO-Revision-Date: 2016-06-14 01:23+0900\n"
+"POT-Creation-Date: 2016-06-14 16:35+0900\n"
+"PO-Revision-Date: 2016-06-15 13:03+0900\n"
 "Last-Translator: Taehwan Kim <maxtortime@ajou.ac.kr>\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -19,30 +19,46 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: templates/index.html:7
+#: templates/base.html:7
 msgid "쉽고 간단한 웹 에디터"
 msgstr "簡単で安全なウェブ・エディター"
 
-#: templates/index.html:50
+#: templates/index.html:21
 msgid "저장"
 msgstr "セーブ"
 
-#: templates/index.html:51
+#: templates/index.html:22
 msgid "불러오기"
 msgstr "ロード"
 
-#: templates/index.html:56
+#: templates/index.html:23
+msgid "삭제"
+msgstr "削除"
+
+#: templates/index.html:28 templates/index.html:131 templates/index.html:150
 msgid "파일 이름을 입력하세요"
 msgstr "ァイルの名前"
 
-#: templates/index.html:58
+#: templates/index.html:30
 msgid "글꼴 크기"
 msgstr "フォントサイズ"
 
-#: templates/index.html:117
+#: templates/index.html:88
+msgid "목록"
+msgstr "リスト"
+
+#: templates/index.html:89
 msgid "로그아웃"
 msgstr "ログアウト"
 
-#: templates/index.html:119
+#: templates/index.html:91
 msgid "로그인"
 msgstr "ログイン"
+
+#: templates/index.html:135
+msgid "다운로드 하기"
+msgstr "ダウンロード"
+
+#: templates/index.html:153
+msgid "이 삭제되었습니다"
+msgstr "が削除されました"
