@@ -124,11 +124,7 @@
     </nav>
     <div id="editor"></div>
     <div id="container">
-        <form action="{{ url_for('file_compile') }}">
-         <ul class="nav navbar-nav navbar-right">
-                 <input type="button" value="Complie"><br>
-                </ul>
-            </form>
+        <button id="compile">Compile</button>
         <p>
             {{ result }}
         </p>

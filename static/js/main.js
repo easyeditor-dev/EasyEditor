@@ -164,92 +164,46 @@ $(document).ready(function(){
         editor.setTheme("ace/theme/"+$("#theme").val());
 
     })
-    /*
-    $("#loadCode").click(function() {
-        $.get("fileToCode.php",
-            {
-                src:$("input[name=src]:checked", "#selForm").val()
-            }
-        ).done(function(data) {
-            $("#selForm").remove();
-            alert(data);
-        });
-    });
-    */
 });
 
 
-    // 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
-    // 쿠키에 있어야 할 정보 1, 언어 2. 작성일
-    $("#save").click(function() {
-        var d = new Date();
-        d.setTime(d.getTime() + (10*24*60*60*1000));
-        var expires = d.toUTCString();
+// 쿠키를 이용하여 쉽게 코드를 저장하고 불러올 수 있음.
+// 쿠키에 있어야 할 정보 1, 언어 2. 작성일
+$("#save").click(function() {
+    var d = new Date();
+    d.setTime(d.getTime() + (10*24*60*60*1000));
+    var expires = d.toUTCString();
 
-        var codeEncoded = encodeURIComponent(editor.getValue());
+    var codeEncoded = encodeURIComponent(editor.getValue());
 
-        document.cookie = "code=" + codeEncoded + "; " + "lang=" +
-                $("#lang option:selected").text() +";";
+    document.cookie = "code=" + codeEncoded + "; " + "lang=" +
+        $("#lang option:selected").text() +";";
 
-        document.cookie =  "lang=" + $("#lang option:selected").text() +";";
+    document.cookie =  "lang=" + $("#lang option:selected").text() +";";
 
-        $.post($SCRIPT_ROOT + '/_code_to_file',
-                {
-                    code: editor.getValue(),
-                    filename: filename
-                }
-        ).done(function(name) {
-            // 새로 다운로드 링크 만들기
-            var downLinkHTML = "<br><a download id='down' href='/static/UserFile/" + name + "'>"
-                    + name +" 다운로드 하기</a>";
+    $.post($SCRIPT_ROOT + '/_code_to_file',
+        {
+            code: editor.getValue(),
+            filename: filename
+        }
+    ).done(function(name) {
+        // 새로 다운로드 링크 만들기
+        var downLinkHTML = "<br><a download id='down' href='/static/UserFile/" + name + "'>"
+            + name +" 다운로드 하기</a>";
 
-            $("#container").append(downLinkHTML);
-        });
+        $("#container").append(downLinkHTML);
     });
+});
 
-    /*
-     $.post("codeToDB.php",
-     {
-     lang: lang_real,
-     filename: filename,
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(data) {
-     if(data !="NOT_LOGIN") {
-     var successInfo = '<div class="alert alert-success alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>성공적으로 '+ filename+' 파일의 경로를 DB에 저장했습니다</div>';
+$("#compile").click(function() {
+    $.post($SCRIPT_ROOT + '/_file_compile',
+        {
+            filename: filename
+        }
+    ).done(function(result) {
+        // 새로 다운로드 링크 만들기
+        var compile_result = "<p> " + result + "</p>";
 
-     $("#alerts").append(successInfo);
-     }
-     else {
-     var failInfo = '<div class="alert alert-warning alert-dismissible" role="alert"> \
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
-     <span aria-hidden="true">&times;</span></button>파일의 경로를 저장하려면 로그인 먼저 해주세요!</div>';
-
-     $("#alerts").append(failInfo);
-     }
-     });
-     });
-
-     // 불러오기 누르면 쿠키에서 코드를 꺼내서 에디터에 삽입함
-     $("#load").click(function() {
-     var code = decodeURIComponent(getCookie("code"));
-     var lang = getCookie("lang");
-
-     editor.getSession().setMode("ace/mode/"+modes[lang]);
-     $("#lang").val(modes[lang]); // 언어 선택을 바꿈(태그 값 교체)
-     editor.setValue(code);
-
-     $.get("selectForm.php",
-     {
-     id: <?=$_SESSION["id"]?>
-     }
-     ).done(function(form) {
-     $("#selForm").remove();
-     $("#container").append(form);
-     });
-     });
-     */
-
-
+        $("#container").append(compile_result);
+    });
+});

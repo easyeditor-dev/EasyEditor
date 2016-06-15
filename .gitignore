@@ -14,3 +14,5 @@ bower_components/
 node_modules/
 *.log
 static/components
+*.o
+*.mo
