@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-14 16:35+0900\n"
-"PO-Revision-Date: 2016-06-15 13:03+0900\n"
+"POT-Creation-Date: 2016-06-15 18:29+0900\n"
+"PO-Revision-Date: 2016-06-15 18:35+0900\n"
 "Last-Translator: Taehwan Kim <maxtortime@ajou.ac.kr>\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "ロード"
 msgid "삭제"
 msgstr "削除"
 
-#: templates/index.html:28 templates/index.html:131 templates/index.html:150
+#: templates/index.html:28 templates/index.html:136 templates/index.html:155
 msgid "파일 이름을 입력하세요"
 msgstr "ァイルの名前"
 
@@ -55,10 +55,14 @@ msgstr "ログアウト"
 msgid "로그인"
 msgstr "ログイン"
 
-#: templates/index.html:135
+#: templates/index.html:105
+msgid "컴파일"
+msgstr "ファイル"
+
+#: templates/index.html:140
 msgid "다운로드 하기"
 msgstr "ダウンロード"
 
-#: templates/index.html:153
+#: templates/index.html:158
 msgid "이 삭제되었습니다"
 msgstr "が削除されました"
