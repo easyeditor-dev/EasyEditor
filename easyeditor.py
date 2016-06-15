@@ -156,9 +156,13 @@ def delete():
 
 # 목록으로부터 파일 불러오기
 @login_required
-@easy_editor.route('/_load', methods=['POST'])
+@easy_editor.route('/_load', methods=['POST', 'GET'])
 def load():
     filename = request.form['filename']
+
+    if len(filename.split('.')[0]) == 0:
+        return "ERROR"
+
     file_path = USER_FILE_DIR_PATH + filename
     with open(file_path, 'r') as f:
         code = f.read()
