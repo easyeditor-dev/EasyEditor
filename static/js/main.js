@@ -176,16 +176,15 @@ $("#load").click(function(){
     })
 });
 
-// 목록으로부터 파일 불러오기
-$(".load").click(function(){
-    console.log(this.text);
-    $.post($SCRIPT_ROOT + '/_load',
+$("#compile").click(function() {
+    $.post($SCRIPT_ROOT + '/_file_compile',
         {
-            filename: this.text
+            filename: filename
         }
-    ).done(function(code){
-        editor.setValue(code);
-    })
+    ).done(function(result) {
+        // 새로 다운로드 링크 만들기
+        var compile_result = "<p> " + result + "</p>";
+
+        $("#container").append(compile_result);
+    });
 });
-
-

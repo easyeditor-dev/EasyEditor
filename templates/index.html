@@ -101,6 +101,11 @@
                     <li><a class="load" href="#">{{ name }}</a></li>
                 {% endfor %}
             </ul>
+
+            <button id="compile">{{ _('컴파일') }}</button>
+            <p>
+                {{ result }}
+            </p>
         </div>
     </div>
     <script src="{{ url_for('static', filename='components/ace-builds/src-min/ace.js') }}"

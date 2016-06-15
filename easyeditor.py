@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 from os import mkdir
 from os.path import isdir
@@ -69,6 +70,29 @@ def get_locale():
 @easy_editor.route('/')
 def index():
     return render_template('index.html', files=[])
+
+@login_required
+@easy_editor.route('/_file_compile', methods=['POST'])
+def file_compile():
+    filename = request.form['filename']
+
+    assert filename is not None
+
+    if len(filename.split('.')[0]) == 0:
+        return "ERROR"
+
+    result = subprocess_open('gcc -S ' + USER_FILE_DIR_PATH + filename)
+
+    if len(result[1]) == 0:
+        return "Good"
+    else:
+        return result[1]
+
+def subprocess_open(command):
+    popen = subprocess.Popen(command,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell = True)
+    (stdoutdata, stderrdata) = popen.communicate()
+    return stdoutdata,stderrdata
+
 
 @login_required
 @easy_editor.route('/_code_to_file', methods=['POST'])
