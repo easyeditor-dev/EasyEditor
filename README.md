@@ -1,6 +1,7 @@
 # Easyeditor
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/maxtortime/EasyEditor)
 [![Build Status](https://travis-ci.org/maxtortime/EasyEditor.svg?branch=master)](https://travis-ci.org/maxtortime/EasyEditor)
+[![Coverage Status](https://coveralls.io/repos/github/maxtortime/EasyEditor/badge.svg)](https://coveralls.io/github/maxtortime/EasyEditor)
 
 [Just do it!](http://easyeditor.herokuapp.com)
 
