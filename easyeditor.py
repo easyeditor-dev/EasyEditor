@@ -5,7 +5,7 @@ import sys
 from flask import Flask
 from flask import render_template, request
 from flask_babel import Babel
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, LoginManager
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, \
     Security
 from flask_sqlalchemy import SQLAlchemy
@@ -20,6 +20,9 @@ babel = Babel(easy_editor)
 
 # Define the DB
 db = SQLAlchemy(easy_editor)
+
+login_manager = LoginManager()
+login_manager.init_app(easy_editor)
 
 # Define models
 roles_users = db.Table('roles_users',
@@ -63,8 +66,6 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(easy_editor, user_datastore)
 
 
-
-
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
@@ -86,10 +87,10 @@ def file_compile():
         return "ERROR"
 
     result = subprocess_open('gcc -S ' +
-                             easy_editor.config['USER_FILE_DIR_PATH']
-                             + filename)
+                             easy_editor.config['USER_FILE_DIR_PATH'] +
+                             filename)
 
-    if len(result[1]) == 0:
+    if not len(result[1]):
         return "Good"
     else:
         return result[1]
@@ -178,7 +179,8 @@ def load():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'], filename)
+    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'],
+                             filename)
     with open(file_path, 'r') as f:
         code = f.read()
     return code
