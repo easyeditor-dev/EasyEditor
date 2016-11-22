@@ -1,3 +1,4 @@
+import ntpath
 import os
 import subprocess
 import sys
@@ -130,7 +131,7 @@ def code_to_file():
 def file_list():
     paths = Path.query.filter_by(
         user_id=User.query.filter_by(email=current_user.email).one().id).all()
-    files = [os.path.splitext(path.file_path)[1] for path in paths]
+    files = [ntpath.basename(path.file_path) for path in paths]
 
     return render_template('index.html', files=files)
 

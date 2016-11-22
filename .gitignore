@@ -1,5 +1,6 @@
 node_modules/
-static/
+static/UserFile
+static/components
 
 # Pycharm idea dir
 .idea/
