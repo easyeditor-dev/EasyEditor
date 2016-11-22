@@ -17,4 +17,5 @@ script:
     # (I ignore "E402: module level import not at top of file"
     # because of use case sys.path.append('..'); import <module>)
     - find . -name \*.py -exec pep8 --ignore=E402 {} +
+    - sh heroku.sh
     - python test_easyeditor.py
