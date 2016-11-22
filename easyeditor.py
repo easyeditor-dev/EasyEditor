@@ -8,7 +8,8 @@ from flask import Flask
 from flask import render_template, request
 from flask_babel import Babel
 from flask_login import login_required, current_user
-from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, Security
+from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, \
+    Security
 from flask_sqlalchemy import SQLAlchemy
 
 from config import LANGUAGES
@@ -24,8 +25,10 @@ db = SQLAlchemy(easy_editor)
 
 # Define models
 roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+                       db.Column('user_id', db.Integer(),
+                                 db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(),
+                                 db.ForeignKey('role.id')))
 
 
 # Role table
@@ -61,15 +64,19 @@ class Path(db.Model):
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(easy_editor, user_datastore)
 
-USER_FILE_DIR_PATH = './static/UserFile/'
+USER_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), 'static',
+                                  'UserFile')
+
 
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
 
+
 @easy_editor.route('/')
 def index():
     return render_template('index.html', files=[])
+
 
 @login_required
 @easy_editor.route('/_file_compile', methods=['POST'])
@@ -88,10 +95,12 @@ def file_compile():
     else:
         return result[1]
 
+
 def subprocess_open(command):
-    popen = subprocess.Popen(command,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell = True)
+    popen = subprocess.Popen(command,  stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, shell=True)
     (stdoutdata, stderrdata) = popen.communicate()
-    return stdoutdata,stderrdata
+    return stdoutdata, stderrdata
 
 
 @login_required
@@ -103,10 +112,11 @@ def code_to_file():
         return "ERROR"
 
     code = request.form['code']
-    file_path = USER_FILE_DIR_PATH + filename
+    file_path = os.path.join(USER_FILE_DIR_PATH, filename)
 
     with open(file_path, 'w') as f:
-        path_record = Path(user_id=User.query.filter_by(email=current_user.email).one().id,
+        path_record = Path(user_id=User.query.filter_by(email=current_user.
+                                                        email).one().id,
                            path=file_path)
 
         f.write(code)
@@ -116,18 +126,19 @@ def code_to_file():
 
     return filename
 
+
 # 목록 보여주기
 @login_required
-@easy_editor.route('/_list', methods=['GET'])
-def list():
-    paths = Path.query.filter_by(user_id=User.query.filter_by(email=current_user.email).one().id).all()
-    files = []
-    for i in paths:
-        files.append(i.file_path[len(USER_FILE_DIR_PATH):])
-    for i in files:
-        print(i)
+@easy_editor.route('/_file_list', methods=['GET'])
+def file_list():
+    return render_template('index.html',
+                           files=[path.file_path[len(USER_FILE_DIR_PATH):]
+                                  for path in Path.query.filter_by(
+                                   user_id=User.query.filter_by(
+                                       email=current_user.email).one().id).all(
 
-    return render_template('index.html', files = files)
+                               )]
+                           )
 
 
 @login_required
@@ -140,10 +151,12 @@ def delete():
 
     file_path = USER_FILE_DIR_PATH + filename
 
-    path_record = Path.query.filter_by(user_id = User.query.filter_by(email = current_user.email).one().id,
-                                       file_path = file_path).one()
+    path_record = Path.query.filter_by(user_id=User.query
+                                       .filter_by(email=current_user
+                                                  .email).one().id,
+                                       file_path=file_path).one()
 
-    if path_record != None:
+    if not path_record:
         os.remove(file_path)
 
         db.session.delete(path_record)
@@ -163,7 +176,7 @@ def load():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = USER_FILE_DIR_PATH + filename
+    file_path = os.path.join(USER_FILE_DIR_PATH, filename)
     with open(file_path, 'r') as f:
         code = f.read()
     return code
@@ -182,4 +195,4 @@ if __name__ == "__main__":
         easy_editor.run(threaded=True, port=int(8080))
     elif mode == "deploy":
         easy_editor.config.update(DEBUG=False)
-        easy_editor.run(host="0.0.0.0", port=int(80),threaded=True)
+        easy_editor.run(host="0.0.0.0", port=int(80), threaded=True)

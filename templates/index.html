@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
+    <!-- GitHub Fork Ribbon -->
+    <a href="https://github.com/maxtortime/EasyEditor">
+        <img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"
+                                          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png">
+    </a>
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -85,7 +90,7 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         {% if current_user.is_authenticated %}
-                            <li><a id="list" href="{{ url_for('list') }}">{{ _('목록') }}</a></li>
+                            <li><a id="list" href="{{ url_for('file_list') }}">{{ _('목록') }}</a></li>
                             <li><a href="{{ url_for('security.logout') }}">{{ _('로그아웃') }}</a></li>
                         {% else %}
                             <li><a href="{{ url_for('security.login') }}">{{ _('로그인') }}</a></li>

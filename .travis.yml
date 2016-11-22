@@ -1,0 +1,19 @@
+language: python
+python:
+- 3.5
+deploy:
+  provider: heroku
+  api_key:
+    secure: VEkdDL0DrCsSyyGeRilYkp3RucXYAOXDlScbhJX2se0JB+hGRjLOc6aDlXWgqv8ugXLeHcdtrY9x9twLfW4rBZ8awHIiNBr1i+g2L/X6PHrdNKGuxpcVtNfOtYVGZxYqRTaZgwXuj+eAelmqA2BUeYtYEIfzF8rJzUhLmARBMDvzugARbfylNTjPuuf31Sa/FHiMlolebYSqIEdok9PSm4Ho4LQ0Cur1W8R78p1g5ciwk+arQvrExTVtROUNMlyvT1CKNFzdzwrWDd5ULLIVW/qgWwlUHM5cgFQXBa1mNc12cYYltE2vjdZML7uMiHFocZPY8XuBSzgWPQq8+sbNls4nvUryTWnovWwo/UdHesBi4phrC3kz1TPBcmsajWLoIqgNR5XVLdEuIkelcnYhYQeZFUh/uo8xI2DSQ7uukqUa8zQ1vYRndqe60nXCTn1kYOGqYQwrXz+BkWAE4YJMC63PtTwC7MiWqmi/zoxfLIcDBOBm2T1btkImj7a5z9wjVYPvaAfhEy0V4wnqaHuTV0GE9VDk71wVo9DUiRvrdNiZO8bDsx+syIUHA+BL1skhvpo12iihh4VsJhoI3ztJHfRRz785dc6jLRLOj03CyfMlMhsdKivJZp5gIu32qpCybZMsgufbS5oaVEcPhoLgYs8zT/TiX/uEUmTLoNf2pUk=
+  app: EasyEditor
+  on:
+    repo: maxtortime/EasyEditor
+before_install:
+    - pip install pep8
+install:
+    - pip install -r requirements.txt
+script:
+    # Run pep8 on all .py files in all subfolders
+    # (I ignore "E402: module level import not at top of file"
+    # because of use case sys.path.append('..'); import <module>)
+    - find . -name \*.py -exec pep8 --ignore=E402 {} +

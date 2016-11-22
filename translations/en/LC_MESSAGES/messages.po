@@ -1,68 +1,84 @@
 # English translations for PROJECT.
 # Copyright (C) 2016 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <maxtortime@ajou.ac.kr>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-15 18:29+0900\n"
-"PO-Revision-Date: 2016-06-15 13:04+0900\n"
-"Last-Translator: Taehwan Kim <maxtortime@ajou.ac.kr>\n"
+"POT-Creation-Date: 2016-11-23 00:06+0900\n"
+"PO-Revision-Date: 2016-11-23 00:10+0900\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.8.11\n"
 
-#: templates/base.html:7
-msgid "쉽고 간단한 웹 에디터"
-msgstr "Easy and simple Web Editor"
-
-#: templates/index.html:21
+#: templates/index.html:26
 msgid "저장"
 msgstr "Save"
 
-#: templates/index.html:22
+#: templates/index.html:27
 msgid "불러오기"
 msgstr "Load"
 
-#: templates/index.html:23
+#: templates/index.html:28
 msgid "삭제"
 msgstr "Delete"
 
-#: templates/index.html:28 templates/index.html:136 templates/index.html:155
+#: templates/index.html:33 templates/index.html:142 templates/index.html:161
 msgid "파일 이름을 입력하세요"
-msgstr "File name"
+msgstr "Please enter a file name"
 
-#: templates/index.html:30
+#: templates/index.html:35
 msgid "글꼴 크기"
 msgstr "Font size"
 
-#: templates/index.html:88
+#: templates/index.html:93
 msgid "목록"
-msgstr "List"
+msgstr "File List"
 
-#: templates/index.html:89
+#: templates/index.html:94
 msgid "로그아웃"
-msgstr "Log out"
+msgstr "Sign Out"
 
-#: templates/index.html:91
+#: templates/index.html:96 templates/security/_menu.html:5
 msgid "로그인"
-msgstr "Login"
+msgstr "Sign in"
 
-#: templates/index.html:105
+#: templates/index.html:110
 msgid "컴파일"
-msgstr "Compile"
+msgstr "Complie"
 
-#: templates/index.html:140
+#: templates/index.html:146
 msgid "다운로드 하기"
 msgstr "Download"
 
-#: templates/index.html:158
+#: templates/index.html:164
 msgid "이 삭제되었습니다"
-msgstr "has been deleted successfully"
+msgstr "has been deleted."
 
+#: templates/security/_menu.html:4
+msgid "에디터로 돌아가기"
+msgstr "Come back to the editor."
+
+#: templates/security/_menu.html:7
+msgid "회원가입"
+msgstr "Register"
+
+#: templates/security/_menu.html:10
+msgid "비밀번호 찾기"
+msgstr "Forgot password"
+
+#: templates/security/_menu.html:13
+msgid "이메일 재인증하기"
+msgstr "Email reconfirmation"
+
+#: templates/base.html:7
+msgid "쉽고 간단한 웹 에디터"
+msgstr "Easy and simple web editor."

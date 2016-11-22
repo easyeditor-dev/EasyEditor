@@ -7,9 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-06-15 18:29+0900\n"
-"PO-Revision-Date: 2016-06-15 18:35+0900\n"
-"Last-Translator: Taehwan Kim <maxtortime@ajou.ac.kr>\n"
+"POT-Creation-Date: 2016-11-23 00:06+0900\n"
+"PO-Revision-Date: 2016-11-23 00:16+0900\n"
 "Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -17,52 +16,69 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 1.8.8\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.8.11\n"
 
-#: templates/base.html:7
-msgid "쉽고 간단한 웹 에디터"
-msgstr "簡単で安全なウェブ・エディター"
-
-#: templates/index.html:21
+#: templates/index.html:26
 msgid "저장"
-msgstr "セーブ"
+msgstr "保存"
 
-#: templates/index.html:22
+#: templates/index.html:27
 msgid "불러오기"
-msgstr "ロード"
+msgstr "負荷"
 
-#: templates/index.html:23
+#: templates/index.html:28
 msgid "삭제"
 msgstr "削除"
 
-#: templates/index.html:28 templates/index.html:136 templates/index.html:155
+#: templates/index.html:33 templates/index.html:142 templates/index.html:161
 msgid "파일 이름을 입력하세요"
-msgstr "ァイルの名前"
+msgstr "ファイル名を入力してください"
 
-#: templates/index.html:30
+#: templates/index.html:35
 msgid "글꼴 크기"
 msgstr "フォントサイズ"
 
-#: templates/index.html:88
+#: templates/index.html:93
 msgid "목록"
-msgstr "リスト"
+msgstr "ファイルのリスト"
 
-#: templates/index.html:89
+#: templates/index.html:94
 msgid "로그아웃"
 msgstr "ログアウト"
 
-#: templates/index.html:91
+#: templates/index.html:96 templates/security/_menu.html:5
 msgid "로그인"
 msgstr "ログイン"
 
-#: templates/index.html:105
+#: templates/index.html:110
 msgid "컴파일"
-msgstr "ファイル"
+msgstr "コンパイル"
 
-#: templates/index.html:140
+#: templates/index.html:146
 msgid "다운로드 하기"
 msgstr "ダウンロード"
 
-#: templates/index.html:158
+#: templates/index.html:164
 msgid "이 삭제되었습니다"
 msgstr "が削除されました"
+
+#: templates/security/_menu.html:4
+msgid "에디터로 돌아가기"
+msgstr "エディタに戻る"
+
+#: templates/security/_menu.html:7
+msgid "회원가입"
+msgstr "会員登録"
+
+#: templates/security/_menu.html:10
+msgid "비밀번호 찾기"
+msgstr "パスワードを忘れた"
+
+#: templates/security/_menu.html:13
+msgid "이메일 재인증하기"
+msgstr "メール再認証する"
+
+#: templates/base.html:7
+msgid "쉽고 간단한 웹 에디터"
+msgstr "簡単でシンプルなウェブエディタ"
