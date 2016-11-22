@@ -1,8 +1,6 @@
 import os
 import subprocess
 import sys
-from os import mkdir
-from os.path import isdir
 
 from flask import Flask
 from flask import render_template, request
@@ -64,8 +62,7 @@ class Path(db.Model):
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(easy_editor, user_datastore)
 
-USER_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), 'static',
-                                  'UserFile')
+
 
 
 @babel.localeselector
@@ -88,7 +85,9 @@ def file_compile():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    result = subprocess_open('gcc -S ' + USER_FILE_DIR_PATH + filename)
+    result = subprocess_open('gcc -S ' +
+                             easy_editor.config['USER_FILE_DIR_PATH']
+                             + filename)
 
     if len(result[1]) == 0:
         return "Good"
@@ -112,7 +111,8 @@ def code_to_file():
         return "ERROR"
 
     code = request.form['code']
-    file_path = os.path.join(USER_FILE_DIR_PATH, filename)
+    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'],
+                             filename)
 
     with open(file_path, 'w') as f:
         path_record = Path(user_id=User.query.filter_by(email=current_user.
@@ -132,7 +132,9 @@ def code_to_file():
 @easy_editor.route('/_file_list', methods=['GET'])
 def file_list():
     return render_template('index.html',
-                           files=[path.file_path[len(USER_FILE_DIR_PATH):]
+                           files=[path.file_path[
+                                  len(easy_editor.config
+                                      ['USER_FILE_DIR_PATH']):]
                                   for path in Path.query.filter_by(
                                    user_id=User.query.filter_by(
                                        email=current_user.email).one().id).all(
@@ -149,7 +151,7 @@ def delete():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = USER_FILE_DIR_PATH + filename
+    file_path = easy_editor.config[''] + filename
 
     path_record = Path.query.filter_by(user_id=User.query
                                        .filter_by(email=current_user
@@ -176,16 +178,13 @@ def load():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = os.path.join(USER_FILE_DIR_PATH, filename)
+    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'], filename)
     with open(file_path, 'r') as f:
         code = f.read()
     return code
 
 
 if __name__ == "__main__":
-    if not isdir(USER_FILE_DIR_PATH):
-        mkdir(USER_FILE_DIR_PATH)
-
     try:
         mode = sys.argv[1]
     except IndexError:

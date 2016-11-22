@@ -1,5 +1,9 @@
+import os
+
 DEBUG = True
 BABEL_DEFAULT_LOCALE = 'ko'
+USER_FILE_DIR_PATH = os.path.join(os.path.dirname(__file__), 'static',
+                                  'UserFile')
 
 LANGUAGES = {
     'ko': 'Korean',
