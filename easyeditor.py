@@ -5,7 +5,7 @@ import sys
 from flask import Flask
 from flask import render_template, request
 from flask_babel import Babel
-from flask_login import login_required, current_user, LoginManager
+from flask_login import login_required, current_user
 from flask_security import RoleMixin, UserMixin, SQLAlchemyUserDatastore, \
     Security
 from flask_sqlalchemy import SQLAlchemy
@@ -15,14 +15,13 @@ from config import LANGUAGES
 easy_editor = Flask(__name__)
 easy_editor.config.from_object('config')
 
+user_file = easy_editor.config['USER_FILE_DIR_PATH']
+
 # for i18n
 babel = Babel(easy_editor)
 
 # Define the DB
 db = SQLAlchemy(easy_editor)
-
-login_manager = LoginManager()
-login_manager.init_app(easy_editor)
 
 # Define models
 roles_users = db.Table('roles_users',
@@ -86,9 +85,7 @@ def file_compile():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    result = subprocess_open('gcc -S ' +
-                             easy_editor.config['USER_FILE_DIR_PATH'] +
-                             filename)
+    result = subprocess_open('gcc -S ' + user_file + filename)
 
     if not len(result[1]):
         return "Good"
@@ -97,7 +94,7 @@ def file_compile():
 
 
 def subprocess_open(command):
-    popen = subprocess.Popen(command,  stdout=subprocess.PIPE,
+    popen = subprocess.Popen(command, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE, shell=True)
     (stdoutdata, stderrdata) = popen.communicate()
     return stdoutdata, stderrdata
@@ -112,8 +109,7 @@ def code_to_file():
         return "ERROR"
 
     code = request.form['code']
-    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'],
-                             filename)
+    file_path = os.path.join(user_file, filename)
 
     with open(file_path, 'w') as f:
         path_record = Path(user_id=User.query.filter_by(email=current_user.
@@ -132,16 +128,11 @@ def code_to_file():
 @login_required
 @easy_editor.route('/_file_list', methods=['GET'])
 def file_list():
-    return render_template('index.html',
-                           files=[path.file_path[
-                                  len(easy_editor.config
-                                      ['USER_FILE_DIR_PATH']):]
-                                  for path in Path.query.filter_by(
-                                   user_id=User.query.filter_by(
-                                       email=current_user.email).one().id).all(
+    paths = Path.query.filter_by(
+        user_id=User.query.filter_by(email=current_user.email).one().id).all()
+    files = [os.path.splitext(path.file_path)[1] for path in paths]
 
-                               )]
-                           )
+    return render_template('index.html', files=files)
 
 
 @login_required
@@ -152,7 +143,7 @@ def delete():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = easy_editor.config[''] + filename
+    file_path = user_file + filename
 
     path_record = Path.query.filter_by(user_id=User.query
                                        .filter_by(email=current_user
@@ -179,8 +170,7 @@ def load():
     if len(filename.split('.')[0]) == 0:
         return "ERROR"
 
-    file_path = os.path.join(easy_editor.config['USER_FILE_DIR_PATH'],
-                             filename)
+    file_path = os.path.join(user_file, filename)
     with open(file_path, 'r') as f:
         code = f.read()
     return code
