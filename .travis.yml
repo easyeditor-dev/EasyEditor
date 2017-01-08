@@ -7,7 +7,6 @@ install:
 - pip install coveralls
 - pip install -r requirements.txt
 script:
-- find . -name \*.py -exec pep8 --ignore=E402 {} +
 - mkdir ./static/UserFile/
 - coverage run --source=easyeditor test_easyeditor.py
 after_success:
