@@ -49,6 +49,8 @@ var helloWorlds = {
     "C++":"#include <iostream.h>\nmain()\n{\n\tcout << 'Hello World' << endl;\n\treturn 0;\n}",
     "C#":"class HelloWorld {\n\tstatic void Main() {\n\t System.console.writeLine('Hello World!');\n\t}\n}",
     "CSS":"body:before {\n\tcontent:'Hello World';\n}",
+    "Kotlin":'package hello\n\nfun main(args: Array)<String> {\n\tprintln("Hello World")\n}',
+    "Go":'package main\n\nimport "fmt"\n\nfunc main() {\n\tfmt.Println("Hello World")\n}',
     "Java":"class HelloWorld {\n\tstatic public void main(string args[]) {\n\t System.out.println('Hello World!');\n\t}\n}",
     "JavaScript":"console.log('Hello World')",
     "JSON":"{'hello':'Hello World'}",
