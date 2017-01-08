@@ -5,3 +5,4 @@ flask_security==1.7.5
 flask_sqlalchemy==2.1
 gunicorn==19.6.0
 psycopg2==2.6.2
+bcrypt==2.0.0
